@@ -5,6 +5,7 @@ import sys, time
 #Based on https://www.geeksforgeeks.org/python-program-for-dijkstras-shortest-path-algorithm-greedy-algo-7/
 
 def printPath(paths, j):
+    #Recursion to print path
     # Base Case : If j is source
     if paths[j] == -1:
         print(j,",", end='',sep='')
@@ -37,7 +38,6 @@ def minDistance(dist, sptSet):
 
 def dijkstra(adjacencyMatrix, Vnum):
     startTime = time.perf_counter()
-    #startTime=time.process_time()
     global nodes
     nodes=Vnum
     dist = [float("Inf")] * nodes
@@ -72,6 +72,5 @@ def dijkstra(adjacencyMatrix, Vnum):
 
 
     stopTime = time.perf_counter()
-    #stopTime=time.process_time()
-    print("\nRuntime: ", (stopTime - startTime),"\n")
+    print("\nRuntime: ", ((stopTime - startTime)*1000),"\n")
     printSolution(dist, paths)

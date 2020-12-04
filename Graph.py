@@ -5,11 +5,19 @@ import networkx as nx
 global numNodes
 
 
-def generateGraph(Vnum):
+def generateGraph(Vnum, cGoal):
     numNodes=Vnum
-    #was 10, .4
-    #Was .24
-    G = nx.random_geometric_graph(numNodes, .30)
+
+    completenessGoal=cGoal
+    achievedCompleteness=False
+    while achievedCompleteness==False:
+        #THE DECIMAL IS THE DISTANCE THRESHOLD, CHECK RESULTS TEXT FILE FOR RECOMMENDED THRESHOLD VALUES
+        G = nx.random_geometric_graph(numNodes, .43)
+        completeness = len(G.edges)/(numNodes*numNodes)
+        print(completeness)
+        if completeness >= (completenessGoal - .005) and completeness <= (completenessGoal + .005):
+            achievedCompleteness=True
+
 
 
 
@@ -50,28 +58,18 @@ def generateGraph(Vnum):
         hoverinfo='text',
         textposition="top center",
         marker=dict(
-            showscale=True,
-            # colorscale options
-            # 'Greys' | 'YlGnBu' | 'Greens' | 'YlOrRd' | 'Bluered' | 'RdBu' |
-            # 'Reds' | 'Blues' | 'Picnic' | 'Rainbow' | 'Portland' | 'Jet' |
-            # 'Hot' | 'Blackbody' | 'Earth' | 'Electric' | 'Viridis' |
+            showscale=False,
             colorscale='YlGnBu',
             reversescale=True,
             color=["rgb(255,0,0)"],
             size=20,
-            #colorbar=dict(
-            #    thickness=15,
-            #    title='Node Connections',
-            #    xanchor='left',
-            #    titleside='right'
-            #),
             line_width=2))
     #node Text
     node_adjacencies = []
     node_text = []
     for node, adjacencies in enumerate(G.adjacency()):
         node_adjacencies.append(len(adjacencies[1]))
-        node_text.append('Node: ' + str(node) + ', # of connections: ' + str(len(adjacencies[1])))
+        node_text.append('Node: ' + str(node) + ', (' + str(len(adjacencies[1]))+')')
     node_trace.text = node_text
 
 
@@ -122,10 +120,11 @@ def generateGraph(Vnum):
     # Create Network Graph
     fig = go.Figure(data=[edge_trace, node_trace,eweights_trace],
                     layout=go.Layout(
-                        title='<br>Network graph',
+                        title='',
                         titlefont_size=16,
                         showlegend=False,
                         hovermode='closest',
+                        plot_bgcolor='rgba(0,0,0,0)',
                         margin=dict(b=20, l=5, r=5, t=40),
                         annotations=[dict(
                             text="",
@@ -137,11 +136,12 @@ def generateGraph(Vnum):
                     )
 
 
-    #fig.show()
+    fig.show()
 
 
-    print("number of nodes: ", numNodes)
-    print("number of edges: ", len(G.edges))
+    print("number of nodes:", numNodes)
+    print("number of edges:", len(G.edges))
+    print("Completeness: ", completeness*100, '%', sep='')
 
 
     return adjacencyMatrix, weightedEdges

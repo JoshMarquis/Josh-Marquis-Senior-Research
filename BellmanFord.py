@@ -58,5 +58,5 @@ def BellmanFord(weightedEdges,Vnum):
             return
 
     stopTime = time.perf_counter()
-    print("\nRuntime: ", (stopTime - startTime),"\n")
+    print("\nRuntime: ", ((stopTime - startTime)*1000),"\n")
     printSolution(dist,paths)

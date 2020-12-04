@@ -1,10 +1,8 @@
-import time
+
 import Graph, Dijkstra,BellmanFord
 
 if __name__ == "__main__":
-    #LATER ADD IN A PARAMETER FOR # OF NODES
 
-    #returns a matrix of weighted edges and a list of weighted edges
 
     ###FOR ADJACENCY MATRIX
     #value = weight, index=node dest
@@ -15,22 +13,22 @@ if __name__ == "__main__":
 
     print("Enter desired number of nodes")
     nodes=int(input())
-    adjacencyMatrix, weightedEdges = Graph.generateGraph(nodes)
+    print("Enter desired completeness percentage as a decimal, i.e. 15% = .15")
+    cGoal = float(input())
+    print("Note: If program runs for several seconds, try changing the distance threshold in Graph.py to reach the desired completeness more easily")
+    adjacencyMatrix, weightedEdges = Graph.generateGraph(nodes,cGoal)
 
 
     #Find shortest path using Dijkstra's algorithm
     print("\n~~~~~~~~~~~~~~~~~~~~~~~~~")
     print("Dijkstra's Algorithm")
     print("~~~~~~~~~~~~~~~~~~~~~~~~~")
-    #startTime = time.perf_counter()
+
     Dijkstra.dijkstra(adjacencyMatrix,nodes)
-    #stopTime = time.perf_counter()
-    #print("\nRuntime: ",(stopTime - startTime))
+
 
     print("\n~~~~~~~~~~~~~~~~~~~~~~~~~")
     print("Bellman-Ford Algorithm")
     print("~~~~~~~~~~~~~~~~~~~~~~~~~")
-    #startTime = time.perf_counter()
+
     BellmanFord.BellmanFord(weightedEdges,nodes)
-    #stopTime = time.perf_counter()
-    #print("\nRuntime: ",(stopTime - startTime))
