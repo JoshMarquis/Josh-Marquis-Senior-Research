@@ -15,7 +15,7 @@ def generateGraph(Vnum, cGoal):
         G = nx.random_geometric_graph(numNodes, .40)
         completeness = len(G.edges)/((numNodes*numNodes-1)/2)
         #print(completeness)
-        if completeness >= (completenessGoal - .005) and completeness <= (completenessGoal + .005):
+        if completeness >= (completenessGoal - .002) and completeness <= (completenessGoal + .002):
             achievedCompleteness=True
 
 
