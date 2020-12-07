@@ -12,9 +12,9 @@ def generateGraph(Vnum, cGoal):
     achievedCompleteness=False
     while achievedCompleteness==False:
         #THE DECIMAL IS THE DISTANCE THRESHOLD, CHECK RESULTS TEXT FILE FOR RECOMMENDED THRESHOLD VALUES
-        G = nx.random_geometric_graph(numNodes, .43)
-        completeness = len(G.edges)/(numNodes*numNodes)
-        print(completeness)
+        G = nx.random_geometric_graph(numNodes, .40)
+        completeness = len(G.edges)/((numNodes*numNodes-1)/2)
+        #print(completeness)
         if completeness >= (completenessGoal - .005) and completeness <= (completenessGoal + .005):
             achievedCompleteness=True
 
